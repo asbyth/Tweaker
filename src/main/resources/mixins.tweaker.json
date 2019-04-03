@@ -1,0 +1,17 @@
+{
+  "refmap": "mixins.tweaker.refmap.json",
+  "required": true,
+  "verbose": true,
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.7.11",
+  "package": "net.asbyth.tweaker.mixins",
+  "mixins":
+  [
+    "client.MixinMinecraft",
+    "client.gui.MixinGuiGameOver",
+    "client.renderer.entity.MixinRenderPlayer",
+    "entity.MixinEntity",
+    "entity.MixinEntityLivingBase",
+    "world.MixinWorld"
+  ]
+}
