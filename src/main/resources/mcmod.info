@@ -1,9 +1,9 @@
 [
   {
-    "modid": "Tweaker",
+    "modid": "tweakermod",
     "name": "Tweaker",
     "description": "continuation of h1nk's tweaker mod / prplz steev mod, using mixins",
-    "version": "${version}",
+    "version": "1.0",
     "mcversion": "${mcversion}",
     "url": "https://github.com/asbyth",
     "updateUrl": "",

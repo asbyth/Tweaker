@@ -19,7 +19,7 @@ public class TweakerCommand extends CommandBase {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
-        Minecraft.getMinecraft().displayGuiScreen(new TweakerGUI());
+        new TweakerGUI().show();
     }
 
     @Override

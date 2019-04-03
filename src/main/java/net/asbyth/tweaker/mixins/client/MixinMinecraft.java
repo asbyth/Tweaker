@@ -1,6 +1,6 @@
 package net.asbyth.tweaker.mixins.client;
 
-import net.asbyth.tweaker.Tweaker;
+import net.asbyth.tweaker.config.Options;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.settings.GameSettings;
@@ -12,11 +12,6 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import static org.spongepowered.asm.mixin.injection.At.Shift.AFTER;
 
 @Mixin(Minecraft.class)
 public abstract class MixinMinecraft {
@@ -33,11 +28,6 @@ public abstract class MixinMinecraft {
     @Shadow protected abstract void updateFramebufferSize();
     @Shadow public abstract void updateDisplay();
     @Shadow @Final private static Logger logger;
-
-    @Inject(method = "startGame", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/GuiIngameForge;<init>(Lnet/minecraft/client/Minecraft;)V", shift = AFTER))
-    private void startGame(CallbackInfo ci) {
-        Tweaker.LOGGER.info("Initializing Tweaker");
-    }
 
     /**
      * @author asbyth
@@ -89,12 +79,10 @@ public abstract class MixinMinecraft {
                 updateFramebufferSize();
             }
 
-            // todo: add a config for this
-            // these are below and beneath to show where the {} needs to go
-            Display.setResizable(false);
-            Display.setResizable(true);
-            // these are below and beneath to show where the {} needs to go
-            // todo: add a config for this
+            if (Options.FULLSCREENFIX) {
+                Display.setResizable(false);
+                Display.setResizable(true);
+            }
 
             Display.setFullscreen(fullscreen);
             Display.setVSyncEnabled(gameSettings.enableVsync);

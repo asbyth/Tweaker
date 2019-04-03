@@ -1,5 +1,6 @@
 package net.asbyth.tweaker.mixins.client.gui;
 
+import net.asbyth.tweaker.config.Options;
 import net.minecraft.client.gui.GuiGameOver;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,6 +27,8 @@ public class MixinGuiGameOver {
      */
     @Inject(method = "initGui", at = @At("HEAD"))
     private void initGui(CallbackInfo ci) {
-        enableButtonsTimer = 0;
+        if (Options.RESPAWN_BUTTON) {
+            enableButtonsTimer = 0;
+        }
     }
 }

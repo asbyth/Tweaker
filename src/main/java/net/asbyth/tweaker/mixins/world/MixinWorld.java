@@ -1,13 +1,19 @@
 package net.asbyth.tweaker.mixins.world;
 
+import net.asbyth.tweaker.config.Options;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(World.class)
 public abstract class MixinWorld {
+
+    @Shadow @Final public WorldProvider provider;
 
     /**
      * @author asbyth  / 2pi / prplz
@@ -24,14 +30,10 @@ public abstract class MixinWorld {
     @SideOnly(Side.CLIENT)
     @Overwrite
     public double getHorizon() {
-        // todo: add a config for this
-        // these are below and beneath to show where the {} needs to go
-        return 0.0D;
-        // todo: add a config for this
-        // these are below and beneath to show where the {} needs to go
-
-        // needs an else return provider.getHorizon();
-        // would be a return worldsettings ? 0.0D : 63.0D
-        // but forge uses provider.getHorizon();
+        if (Options.VOIDFLICKERFIX) {
+            return 0.0D;
+        } else {
+            return provider.getHorizon();
+        }
     }
 }

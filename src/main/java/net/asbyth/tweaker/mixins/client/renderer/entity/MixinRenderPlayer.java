@@ -1,5 +1,6 @@
 package net.asbyth.tweaker.mixins.client.renderer.entity;
 
+import net.asbyth.tweaker.config.Options;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
@@ -29,12 +30,10 @@ public abstract class MixinRenderPlayer {
     @Inject(method = "renderRightArm", at = @At(value = "FIELD", target = "Lnet/minecraft/client/model/ModelPlayer;isSneak:Z", ordinal = 0))
     private void renderRightArm(AbstractClientPlayer clientPlayer, CallbackInfo ci) {
         ModelPlayer modelplayer = getMainModel();
-        // todo: add a config for this
-        // these are below and beneath to show where the {} needs to go
-        modelplayer.isRiding = modelplayer.isSneak = false;
-        // todo: add a config for this
-        // these are below and beneath to show where the {} needs to go
-
-        // needs an else modelplayer.isSneak = false;
+        if (Options.ARMPOSITION) {
+            modelplayer.isRiding = modelplayer.isSneak = false;
+        } else {
+            modelplayer.isSneak = false;
+        }
     }
 }

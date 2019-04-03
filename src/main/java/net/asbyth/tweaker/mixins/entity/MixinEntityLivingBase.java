@@ -1,5 +1,6 @@
 package net.asbyth.tweaker.mixins.entity;
 
+import net.asbyth.tweaker.config.Options;
 import net.asbyth.tweaker.mixinsimpl.entity.TweakEntityLivingBase;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.Vec3;
@@ -31,6 +32,8 @@ public abstract class MixinEntityLivingBase extends MixinEntity {
      */
     @Inject(method = "getLook", at = @At("HEAD"), cancellable = true)
     private void getLook(float partialTicks, CallbackInfoReturnable<Vec3> cir) {
-        implementation.getLook(partialTicks, cir, super.getLook(partialTicks));
+        if (Options.MOUSEDELAYFIX) {
+            implementation.getLook(partialTicks, cir, super.getLook(partialTicks));
+        }
     }
 }

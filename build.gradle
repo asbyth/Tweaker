@@ -28,6 +28,7 @@ configurations {
     compile.extendsFrom(embed)
 }
 
+compileJava.options.encoding = 'UTF-8'
 sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
     sourceCompatibility = targetCompatibility = '1.8'
@@ -41,6 +42,7 @@ minecraft {
     version = project.forgeVersion
     runDir = "run"
     mappings = project.mcpVersion
+    makeObfSourceJar = false
 }
 
 reobf {
@@ -102,10 +104,12 @@ jar {
     }
 
     manifest.attributes(
-            "TweakClass": "net.asbyth.loader.TweakLoader",
+            "FMLCorePluginContainsFMLMod": "true",
+            "ForceLoadAsMod": "true",
+            "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
             "MixinConfigs": "mixins.tweaker.json",
-            "TweakOrder": 0,
-            "Manifest-Version": 1.0
+            "FMLCorePlugin": "net.asbyth.tweaker.loader.TweakLoader"
+
     )
 }
 
